@@ -1,0 +1,14 @@
+spring:
+  # Cấu hình DataSource vẫn giữ nguyên cho PostgreSQL
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hrm_db
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+mybatis:
+  # 💡 Vị trí các tệp Mapper XML
+  mapper-locations: classpath:mapper/*.xml
+  # Loại bỏ DDL-AUTO của JPA (vì MyBatis không quản lý lược đồ tự động)
+
+# ... Các cấu hình khác (server.port, eureka.client) ...
