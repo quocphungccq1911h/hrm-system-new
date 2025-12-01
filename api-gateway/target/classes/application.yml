@@ -1,0 +1,40 @@
+server:
+  port: 8080 # Cổng mà Mobile App sẽ gọi đến
+
+spring:
+  application:
+    name: api-gateway # Tên đăng ký với Eureka
+
+  cloud:
+    gateway:
+      routes:
+        # 1. Routing đến Auth Service (Xác thực)
+        - id: auth-service-route
+          uri: lb://AUTH-SERVICE # lb:// (Load Balancer) + Tên SERVICE ID
+          predicates:
+            - Path=/api/auth/** # Bắt tất cả các path bắt đầu bằng /api/auth
+          filters:
+            - StripPrefix=1 # Loại bỏ tiền tố /api
+
+        # 2. Routing đến Employee Service (Quản lý nhân sự)
+        - id: employee-service-route
+          uri: lb://EMPLOYEE-SERVICE
+          predicates:
+            - Path=/api/employees/**
+          filters:
+            - StripPrefix=1
+            # 💡 Vị trí lý tưởng để thêm filter bảo mật (JWT check)
+
+        # 3. Routing đến Attendance Service (Chấm công)
+        - id: attendance-service-route
+          uri: lb://ATTENDANCE-SERVICE
+          predicates:
+            - Path=/api/attendance/**
+          filters:
+            - StripPrefix=1
+
+# Cấu hình kết nối với Eureka Server
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ # Địa chỉ của Eureka Server vừa tạo

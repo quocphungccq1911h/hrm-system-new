@@ -1,0 +1,16 @@
+server:
+  port: 8761 # Cổng mặc định cho Eureka Server
+
+spring:
+  application:
+    name: eureka-server # Tên ứng dụng (Không quan trọng lắm cho Eureka Server)
+
+eureka:
+  client:
+    # Eureka Server không cần tự đăng ký với chính nó
+    register-with-eureka: false
+    # Eureka Server không cần tìm nạp danh sách đăng ký từ chính nó
+    fetch-registry: false
+    serviceUrl:
+      # URL để các client khác kết nối. Cấu hình này chỉ định rằng nó sẽ tìm kiếm chính nó.
+      defaultZone: http://localhost:${server.port}/eureka/
