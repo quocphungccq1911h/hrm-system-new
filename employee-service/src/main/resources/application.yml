@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    # 💡 Trỏ đến cổng 5434
+    url: jdbc:postgresql://localhost:5434/employee_db
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+# ... Các cấu hình khác ...

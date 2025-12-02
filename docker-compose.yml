@@ -1,33 +1,44 @@
 version: '3.8'
 
 services:
-  # 1. POSTGRESQL DATABASE SERVICE
-  postgres_db:
-    image: postgres:15-alpine # Sử dụng image Postgres nhẹ
-    container_name: hrm_postgres_db
+  # 1. AUTH SERVICE DATABASE (Chạy trên cổng 5433 của máy Host)
+  auth_db:
+    image: postgres:15-alpine
+    container_name: hrm_auth_db
     environment:
-      # 💡 Tên Database mà Auth Service sẽ kết nối đến
-      POSTGRES_DB: hrm_db
+      POSTGRES_DB: auth_db         # Tên Database DEDICATED
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     ports:
-      # Ánh xạ cổng nội bộ 5432 của container ra cổng 5432 trên máy host
-      - "5432:5432"
+      - "5433:5432" # Ánh xạ cổng 5432 nội bộ ra 5433 host
     volumes:
-      # Giúp dữ liệu không bị mất khi container bị dừng
-      - postgres_data:/var/lib/postgresql/data
+      - auth_data:/var/lib/postgresql/data
     restart: always
 
-  # 2. EUREKA SERVER SERVICE (Ví dụ, nếu bạn đã có Dockerfile)
+  # 2. EMPLOYEE SERVICE DATABASE (Chạy trên cổng 5434 của máy Host)
+  employee_db:
+    image: postgres:15-alpine
+    container_name: hrm_employee_db
+    environment:
+      POSTGRES_DB: employee_db     # Tên Database DEDICATED
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5434:5432" # Ánh xạ cổng 5432 nội bộ ra 5434 host
+    volumes:
+      - employee_data:/var/lib/postgresql/data
+    restart: always
+
+  # 3. EUREKA SERVER SERVICE
   eureka-server:
     build:
-      context: ./eureka-server
+      context: ./eureka-server 
       dockerfile: Dockerfile
     container_name: hrm_eureka_server
     ports:
-      - "8761:8791"
+      - "8761:8761"
     restart: always
 
 volumes:
-  postgres_data:
-    # Mặc định, Docker sẽ tạo một named volume để lưu trữ dữ liệu
+  auth_data:
+  employee_data:
