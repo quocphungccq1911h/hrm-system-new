@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrm.auth.mapper.ext.ExtUserMapper">
+    <sql id="Base_Column_List">
+        user_id, username, password_hash, email, is_enabled, created_at
+    </sql>
+    <select id="findByUsername" resultType="com.hrm.auth.model.User">
+        SELECT * FROM users WHERE username = #{username}
+    </select>
+</mapper>

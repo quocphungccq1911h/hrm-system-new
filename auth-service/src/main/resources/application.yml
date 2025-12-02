@@ -12,3 +12,6 @@ mybatis:
   # Loại bỏ DDL-AUTO của JPA (vì MyBatis không quản lý lược đồ tự động)
 
 # ... Các cấu hình khác (server.port, eureka.client) ...
+jwt:
+  secret: N2RvYjMybGtzajlkM2pzazhsajM5c2xrMzlqc2xrMzlsag==
+  expiration: 3600000

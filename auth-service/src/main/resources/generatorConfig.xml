@@ -10,12 +10,12 @@
         <property name="javaFileEncoding" value="UTF-8"/>
 
         <jdbcConnection driverClass="org.postgresql.Driver"
-                        connectionURL="jdbc:postgresql://localhost:5432/attendance_db"
+                        connectionURL="jdbc:postgresql://localhost:5432/auth_db"
                         userId="postgres"
                         password="">
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="com.hrm.authservice.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.hrm.auth.model" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -24,27 +24,27 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.hrm.authservice.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.hrm.auth.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-<!--        <table tableName="attendance_logs" domainObjectName="AttendanceLog" enableCountByExample="false" enableUpdateByExample="false"-->
-<!--               enableDeleteByExample="false" enableSelectByExample="false" selectByPrimaryKeyQueryId="false">-->
-<!--            <generatedKey column="id" sqlStatement="SELECT gen_random_uuid()" identity="false"/>-->
-<!--            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER" />-->
-<!--        </table>-->
+        <table tableName="users" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByPrimaryKeyQueryId="false">
+            <generatedKey column="user_id" sqlStatement="SELECT gen_random_uuid()" identity="false"/>
+            <columnOverride column="user_id" javaType="java.util.UUID" jdbcType="OTHER" />
+        </table>
 
-<!--        <table tableName="daily_timesheets" domainObjectName="DailyTimesheet" enableCountByExample="false" enableUpdateByExample="false"-->
-<!--               enableDeleteByExample="false" enableSelectByExample="false" selectByPrimaryKeyQueryId="false">-->
-<!--            <generatedKey column="id" sqlStatement="SELECT gen_random_uuid()" identity="false"/>-->
-<!--            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER" />-->
-<!--        </table>-->
+        <table tableName="user_roles" domainObjectName="UserRole" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByPrimaryKeyQueryId="false">
+            <generatedKey column="user_role_id" sqlStatement="SELECT gen_random_uuid()" identity="false"/>
+            <columnOverride column="user_role_id" javaType="java.util.UUID" jdbcType="OTHER" />
+        </table>
 
-<!--        <table tableName="shifts" domainObjectName="Shift" enableCountByExample="false" enableUpdateByExample="false"-->
-<!--               enableDeleteByExample="false" enableSelectByExample="false" selectByPrimaryKeyQueryId="false">-->
-<!--            <generatedKey column="id" sqlStatement="SELECT gen_random_uuid()" identity="false"/>-->
-<!--            <columnOverride column="id" javaType="java.util.UUID" jdbcType="OTHER" />-->
-<!--        </table>-->
+        <table tableName="roles" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByPrimaryKeyQueryId="false">
+            <generatedKey column="role_id" sqlStatement="SELECT gen_random_uuid()" identity="false"/>
+            <columnOverride column="role_id" javaType="java.util.UUID" jdbcType="OTHER" />
+        </table>
 
     </context>
 </generatorConfiguration>
