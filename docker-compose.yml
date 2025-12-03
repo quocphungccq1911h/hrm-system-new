@@ -29,10 +29,24 @@ services:
       - employee_data:/var/lib/postgresql/data
     restart: always
 
+    # 3. ATTENDANCE SERVICE DATABASE (Chạy trên cổng 5435 của máy Host)
+  attendance_db:
+    image: postgres:15-alpine
+    container_name: hrm_attendance_db
+    environment:
+      POSTGRES_DB: attendance_db     # Tên Database DEDICATED
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5435:5432" # Ánh xạ cổng 5432 nội bộ ra 5435 host
+    volumes:
+      - attendance_data:/var/lib/postgresql/data
+    restart: always
+
   # 3. EUREKA SERVER SERVICE
   eureka-server:
     build:
-      context: ./eureka-server 
+      context: ./eureka-server
       dockerfile: Dockerfile
     container_name: hrm_eureka_server
     ports:
@@ -42,3 +56,4 @@ services:
 volumes:
   auth_data:
   employee_data:
+  attendance_data:

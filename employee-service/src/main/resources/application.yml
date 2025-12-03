@@ -2,8 +2,8 @@ spring:
   datasource:
     # 💡 Trỏ đến cổng 5434
     url: jdbc:postgresql://localhost:5434/employee_db
-    username: user
-    password: password
+    username: postgres
+    password:
     driver-class-name: org.postgresql.Driver
 
 mybatis:

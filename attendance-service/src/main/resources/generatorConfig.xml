@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="${env.HOME}/.m2/repository/org/postgresql/postgresql/42.6.0/postgresql-42.6.0.jar"/>
+
+    <context id="AuthContext" targetRuntime="MyBatis3Simple">
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://localhost:5432/attendance_db"
+                        userId="postgres"
+                        password="">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.hrm.attendance.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.hrm.attendance.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="attendance_records" domainObjectName="AttendanceRecord" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByPrimaryKeyQueryId="false">
+            <generatedKey column="record_id" sqlStatement="SELECT gen_random_uuid()" identity="false"/>
+            <columnOverride column="record_id" javaType="java.util.UUID" jdbcType="OTHER" />
+        </table>
+
+    </context>
+</generatorConfiguration>
